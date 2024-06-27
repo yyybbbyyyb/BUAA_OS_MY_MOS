@@ -10,7 +10,7 @@ void ls(char *path, char *prefix) {
 	struct Stat st;
 
 	if ((r = stat(path, &st)) < 0) {
-		user_panic_return("stat %s: %d", path, r);
+		user_panic("stat %s: %d", path, r);
 	}
 	if (st.st_isdir && !flag['d']) {
 		lsdir(path, prefix);
@@ -24,7 +24,7 @@ void lsdir(char *path, char *prefix) {
 	struct File f;
 
 	if ((fd = open(path, O_RDONLY)) < 0) {
-		user_panic_return("open %s: %d", path, fd);
+		user_panic("open %s: %d", path, fd);
 	}
 	while ((n = readn(fd, &f, sizeof f)) == sizeof f) {
 		if (f.f_name[0]) {
@@ -32,10 +32,10 @@ void lsdir(char *path, char *prefix) {
 		}
 	}
 	if (n > 0) {
-		user_panic_return("short read in directory %s", path);
+		user_panic("short read in directory %s", path);
 	}
 	if (n < 0) {
-		user_panic_return("error reading directory %s: %d", path, n);
+		user_panic("error reading directory %s: %d", path, n);
 	}
 }
 
@@ -62,7 +62,7 @@ void ls1(char *prefix, u_int isdir, u_int size, char *name) {
 
 void usage(void) {
 	printf("usage: ls [-dFl] [file...]\n");
-	exit(1, 1);
+	exit();
 }
 
 int main(int argc, char **argv) {

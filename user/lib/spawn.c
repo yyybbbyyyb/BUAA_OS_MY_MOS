@@ -110,22 +110,9 @@ static int spawn_mapper(void *data, u_long va, size_t offset, u_int perm, const 
 int spawn(char *prog, char **argv) {
 	// Step 1: Open the file 'prog' (the path of the program).
 	// Return the error if 'open' fails.
-	
-	//printf("spawn\n");
-	
-	//debugf("spawn\n");
-	int fd, fd_b;
+	int fd;
 	if ((fd = open(prog, O_RDONLY)) < 0) {
-		char prog_b[1024];
-		int len = strlen(prog);
-		strcpy(prog_b, prog);
-		prog_b[len] = '.';
-		prog_b[len + 1] = 'b';
-		prog_b[len + 2] = '\0';
-		if ((fd_b = open(prog_b, O_RDONLY)) < 0) {
-			return fd;
-		}
-		fd = fd_b;
+		return fd;
 	}
 
 	// Step 2: Read the ELF header (of type 'Elf32_Ehdr') from the file into 'elfbuf' using

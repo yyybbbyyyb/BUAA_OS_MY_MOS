@@ -29,18 +29,6 @@ void *memcpy(void *dst, const void *src, size_t n) {
 	return dstaddr;
 }
 
-
-char* strrchr(const char* s, int c) {
-    const char* last = NULL;
-    while (*s) {
-        if (*s == c) {
-            last = s;
-        }
-        s++;
-    }
-    return (char*)last;
-}
-
 void *memset(void *dst, int c, size_t n) {
 	void *dstaddr = dst;
 	void *max = dst + n;

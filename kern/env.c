@@ -432,10 +432,7 @@ void env_destroy(struct Env *e) {
 	/* Hint: schedule to run a new environment. */
 	if (curenv == e) {
 		curenv = NULL;
-		
-		//yybdo
-		//printk("i am killed ... \n");
-		printk("i([%08x]) am killed ... \n----------yyb_kill----------\n\n", e->env_id);
+		printk("i am killed ... \n");
 		schedule(1);
 	}
 }

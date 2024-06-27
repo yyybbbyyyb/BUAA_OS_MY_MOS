@@ -165,10 +165,6 @@ static int file_write(struct Fd *fd, const void *buf, u_int n, u_int offset) {
 
 	f = (struct Filefd *)fd;
 
-	if (fd->fd_omode & O_APPEND) {
-        offset = f->f_file.f_size; 
-    }
-
 	// Don't write more than the maximum file size.
 	tot = offset + n;
 

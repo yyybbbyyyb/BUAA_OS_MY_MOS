@@ -14,7 +14,7 @@
 #define pages ((const volatile struct Page *)UPAGES)
 
 // libos
-void exit(int, int) __attribute__((noreturn));
+void exit(void) __attribute__((noreturn));
 
 extern const volatile struct Env *env;
 
@@ -23,12 +23,9 @@ extern const volatile struct Env *env;
 // debugf
 void debugf(const char *fmt, ...);
 
-
-void _user_panic_return(const char *, int, const char *, ...) __attribute__((noreturn));
 void _user_panic(const char *, int, const char *, ...) __attribute__((noreturn));
 void _user_halt(const char *, int, const char *, ...) __attribute__((noreturn));
 
-#define user_panic_return(...) _user_panic_return(__FILE__, __LINE__, __VA_ARGS__)
 #define user_panic(...) _user_panic(__FILE__, __LINE__, __VA_ARGS__)
 #define user_halt(...) _user_halt(__FILE__, __LINE__, __VA_ARGS__)
 
@@ -78,7 +75,6 @@ u_int ipc_recv(u_int *whom, void *dstva, u_int *perm);
 
 // wait.c
 void wait(u_int envid);
-int wait_return(u_int envid);
 
 // console.c
 int opencons(void);
@@ -123,8 +119,6 @@ int remove(const char *path);
 int ftruncate(int fd, u_int size);
 int sync(void);
 
-
-
 #define user_assert(x)                                                                             \
 	do {                                                                                       \
 		if (!(x))                                                                          \
@@ -138,11 +132,9 @@ int sync(void);
 #define O_ACCMODE 0x0003 /* mask for above modes */
 #define O_CREAT 0x0100	 /* create if nonexistent */
 #define O_TRUNC 0x0200	 /* truncate to zero length */
-#define O_APPEND 0x0004 
 
 // Unimplemented open modes
 #define O_EXCL 0x0400  /* error if already exists */
 #define O_MKDIR 0x0800 /* create directory, not regular file */
-
 
 #endif

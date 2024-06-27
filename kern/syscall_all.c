@@ -78,9 +78,7 @@ int sys_env_destroy(u_int envid) {
 	struct Env *e;
 	try(envid2env(envid, &e, 1));
 
-	//yybdo
-	printk("\n----------yyb_kill----------\n[%08x] destroying %08x\n", curenv->env_id, e->env_id);
-	//printk("[%08x] destroying %08x\n", curenv->env_id, e->env_id);
+	printk("[%08x] destroying %08x\n", curenv->env_id, e->env_id);
 	env_destroy(e);
 	return 0;
 }
@@ -426,7 +424,6 @@ int sys_ipc_try_send(u_int envid, u_int value, u_int srcva, u_int perm) {
 int sys_cgetc(void) {
 	int ch;
 	while ((ch = scancharc()) == 0) {
-		break;
 	}
 	return ch;
 }

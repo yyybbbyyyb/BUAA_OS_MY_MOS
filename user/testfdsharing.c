@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
 		debugf("read in child succeeded\n");
 		seek(fd, 0);
 		close(fd);
-		exit(0, 1);
+		exit();
 	}
 	wait(r);
 	// seek(fd, 0);

@@ -8,11 +8,11 @@ void cat(int f, char *s) {
 
 	while ((n = read(f, buf, (long)sizeof buf)) > 0) {
 		if ((r = write(1, buf, n)) != n) {
-			user_panic_return("write error copying %s: %d", s, r);
+			user_panic("write error copying %s: %d", s, r);
 		}
 	}
 	if (n < 0) {
-		user_panic_return("error reading %s: %d", s, n);
+		user_panic("error reading %s: %d", s, n);
 	}
 }
 
@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
 		for (i = 1; i < argc; i++) {
 			f = open(argv[i], O_RDONLY);
 			if (f < 0) {
-				user_panic_return("can't open %s: %d", argv[i], f);
+				user_panic("can't open %s: %d", argv[i], f);
 			} else {
 				cat(f, argv[i]);
 				close(f);

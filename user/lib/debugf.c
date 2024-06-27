@@ -48,16 +48,6 @@ void debugf(const char *fmt, ...) {
 	va_end(ap);
 }
 
-void _user_panic_return(const char *file, int line, const char *fmt, ...) {
-	debugf("panic at %s:%d: ", file, line);
-	va_list ap;
-	va_start(ap, fmt);
-	vdebugf(fmt, ap);
-	va_end(ap);
-	debugf("\n");
-	exit(1, 1);
-} 
-
 void _user_panic(const char *file, int line, const char *fmt, ...) {
 	debugf("panic at %s:%d: ", file, line);
 	va_list ap;
@@ -65,7 +55,7 @@ void _user_panic(const char *file, int line, const char *fmt, ...) {
 	vdebugf(fmt, ap);
 	va_end(ap);
 	debugf("\n");
-	exit(0, 0);
+	exit();
 }
 
 void _user_halt(const char *file, int line, const char *fmt, ...) {
